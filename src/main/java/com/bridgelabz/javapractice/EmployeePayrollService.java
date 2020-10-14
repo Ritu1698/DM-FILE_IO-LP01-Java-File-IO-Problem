@@ -16,16 +16,14 @@ public class EmployeePayrollService {
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
 
-
     private List<EmployeePayrollData> employeePayrollList;
 
-    public EmployeePayrollService() {
-    }
-
+    //Parameterized Constructor
     public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
         this.employeePayrollList = employeePayrollList;
     }
 
+    //Main Method
     public static void main(String[] args) {
 
         ArrayList<EmployeePayrollData> employeePayrollList = new ArrayList<>();
@@ -35,6 +33,7 @@ public class EmployeePayrollService {
         employeePayrollService.writeEmployeePayRollData(IOService.CONSOLE_IO);
     }
 
+    //Method to Read Employee and Add Data to List
     public void readEmployeePayRollData(Scanner consoleInputReader) {
         System.out.println("Enter Employee Id: ");
         int id = consoleInputReader.nextInt();
@@ -45,6 +44,7 @@ public class EmployeePayrollService {
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
     }
 
+    //Method to Write Data to File
     public void writeEmployeePayRollData(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
             System.out.println("Writing Employee PayRoll Roaster to Console \n" + employeePayrollList);
@@ -52,11 +52,13 @@ public class EmployeePayrollService {
             new EmployeePayrollFileIOService().writeData(employeePayrollList);
     }
 
+    //Method to Print Data
     public void printData(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
             new EmployeePayrollFileIOService().printData();
     }
 
+    //Method To Count Entries
     public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
             return employeePayrollList.size();

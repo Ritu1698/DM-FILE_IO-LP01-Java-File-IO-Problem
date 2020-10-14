@@ -1,7 +1,5 @@
 ?EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
 ?EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
 DEmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
-?EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
-?EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
-DEmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
-[]
+Ä[EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}, EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}, EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}]
+Ä[EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}, EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}, EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}]

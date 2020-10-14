@@ -10,7 +10,7 @@ import java.util.List;
 public class EmployeePayrollFileIOService {
     public static String PAYROLL_FILE_NAME = "C:/Users/Rituparna Biswas/eclipse-workspace/DM FILE_IO Java File IO/src/main/java/com/bridgelabz/javapractice/payroll-file.txt";
 
-    // Write to file
+    //Method to Write Data to File
     public void writeData(List<EmployeePayrollData> employeePayrollList) {
 
         StringBuffer empBuffer = new StringBuffer();
@@ -24,7 +24,7 @@ public class EmployeePayrollFileIOService {
         }
     }
 
-    // Count entries file
+    //Method to Count Entries
     public long countEntries() {
         long entries = 0;
         try {
@@ -34,7 +34,7 @@ public class EmployeePayrollFileIOService {
         return entries;
     }
 
-    // Print data
+    //Method to Print Data
     public void printData() {
         try {
             Files.lines(new File("C:/Users/Rituparna Biswas/eclipse-workspace/DM FILE_IO Java File IO/src/main/java/com/bridgelabz/javapractice/payroll-file.txt").toPath()).forEach(System.out::println);
@@ -42,15 +42,16 @@ public class EmployeePayrollFileIOService {
         }
     }
 
-    public List<EmployeePayrollData> readData(){
-        List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
-        try{
+    //Method to Read Data From File
+    public List<String> readData() {
+        List<String> employeePayrollDataList = new ArrayList<>();
+        try {
             Files.lines(new File("C:/Users/Rituparna Biswas/eclipse-workspace/DM FILE_IO Java File IO/src/main/java/com/bridgelabz/javapractice/payroll-file.txt").toPath()).map(line -> line.trim())
-                    .forEach(line ->System.out.println(line));
-        }
-        catch (IOException e){
+                    .forEach(line -> employeePayrollDataList.add(line));
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(employeePayrollDataList);
         return employeePayrollDataList;
     }
 }
