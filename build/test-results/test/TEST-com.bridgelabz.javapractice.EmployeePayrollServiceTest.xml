@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-14T13:47:59" hostname="LAPTOP-RGI87V6B" time="0.019">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-14T14:14:58" hostname="LAPTOP-RGI87V6B" time="0.033">
   <properties/>
-  <testcase name="given3Employees_whenWrittenToFile_shouldMatchEntries" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.019"/>
+  <testcase name="given3Employees_whenWrittenToFile_shouldMatchEntries" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.033"/>
   <system-out><![CDATA[EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
 EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
 EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
+EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
+EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
+EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
+[]
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

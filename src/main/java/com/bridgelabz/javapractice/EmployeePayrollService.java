@@ -1,10 +1,18 @@
 package com.bridgelabz.javapractice;
 
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
+
+    public void readDataFileIO(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO))
+            System.out.println(new EmployeePayrollFileIOService().readData());
+
+    }
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
 
@@ -37,7 +45,7 @@ public class EmployeePayrollService {
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
     }
 
-    public void writeEmployeePayRollData(com.bridgelabz.javapractice.EmployeePayrollService.IOService ioService) {
+    public void writeEmployeePayRollData(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
             System.out.println("Writing Employee PayRoll Roaster to Console \n" + employeePayrollList);
         else if (ioService.equals(IOService.FILE_IO))
