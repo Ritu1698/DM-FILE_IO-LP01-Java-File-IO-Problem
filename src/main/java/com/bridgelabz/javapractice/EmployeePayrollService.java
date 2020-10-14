@@ -44,9 +44,12 @@ public class EmployeePayrollService {
             new EmployeePayrollFileIOService().writeData(employeePayrollList);
     }
 
+    public void printData(IOService ioService) {
+        if (ioService.equals(IOService.FILE_IO))
+            new EmployeePayrollFileIOService().printData();
+    }
 
-
-    public long countEntries(IOService ioService){
+    public long countEntries(IOService ioService) {
         if (ioService.equals(IOService.CONSOLE_IO))
             return employeePayrollList.size();
         else if (ioService.equals(IOService.FILE_IO))
