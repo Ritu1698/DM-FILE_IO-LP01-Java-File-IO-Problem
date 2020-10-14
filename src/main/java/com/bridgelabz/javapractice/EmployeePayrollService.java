@@ -13,10 +13,11 @@ public class EmployeePayrollService {
     public EmployeePayrollService() {
     }
 
-    public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList){
+    public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
         this.employeePayrollList = employeePayrollList;
     }
-    public static void main(String [] args){
+
+    public static void main(String[] args) {
 
         ArrayList<EmployeePayrollData> employeePayrollList = new ArrayList<>();
         EmployeePayrollService employeePayrollService = new EmployeePayrollService(employeePayrollList);
@@ -24,16 +25,18 @@ public class EmployeePayrollService {
         employeePayrollService.readEmployeePayRollData(consoleInputReader);
         employeePayrollService.writeEmployeePayRollData();
     }
-    public void readEmployeePayRollData(Scanner consoleInputReader){
+
+    public void readEmployeePayRollData(Scanner consoleInputReader) {
         System.out.println("Enter Employee Id: ");
         int id = consoleInputReader.nextInt();
         System.out.println("Enter Employee Salary: ");
-        double salary  = consoleInputReader.nextDouble();
+        double salary = consoleInputReader.nextDouble();
         System.out.println("Enter Employee Name: ");
         String name = consoleInputReader.next();
         employeePayrollList.add(new EmployeePayrollData(id, name, salary));
     }
-    public void writeEmployeePayRollData(){
-        System.out.println("Writing Employee PayRoll Roaster to Console \n"+employeePayrollList);
+
+    public void writeEmployeePayRollData() {
+        System.out.println("Writing Employee PayRoll Roaster to Console \n" + employeePayrollList);
     }
 }
