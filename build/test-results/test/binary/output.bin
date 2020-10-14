@@ -1,10 +1,3 @@
-0C:\Users\Rituparna Biswas\TempPlayGround\temp0
-0C:\Users\Rituparna Biswas\TempPlayGround\temp1
-0C:\Users\Rituparna Biswas\TempPlayGround\temp2
-0C:\Users\Rituparna Biswas\TempPlayGround\temp3
-0C:\Users\Rituparna Biswas\TempPlayGround\temp4
-0C:\Users\Rituparna Biswas\TempPlayGround\temp5
-0C:\Users\Rituparna Biswas\TempPlayGround\temp6
-0C:\Users\Rituparna Biswas\TempPlayGround\temp7
-0C:\Users\Rituparna Biswas\TempPlayGround\temp8
-0C:\Users\Rituparna Biswas\TempPlayGround\temp9
+?EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
+?EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
+DEmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
