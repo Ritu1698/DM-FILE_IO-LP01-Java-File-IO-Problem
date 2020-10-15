@@ -34,11 +34,8 @@ public class EmployeePayrollServiceTest {
         employeePayrollService.printData(EmployeePayrollService.IOService.FILE_IO);
         long totalEntries = employeePayrollService.countEntries(EmployeePayrollService.IOService.FILE_IO);
         Assert.assertEquals(3, totalEntries);
-        List<EmployeePayrollData> employeePayrollDataList1 = new ArrayList<>();
-        System.out.println("Read Data---------------------");
+        List<EmployeePayrollData> employeePayrollDataList1;
         employeePayrollDataList1 = employeePayrollService.readDataFileIO(EmployeePayrollService.IOService.FILE_IO);
-        System.out.println(employeePayrollDataList1);
-        System.out.println(employeePayrollDataForCheck);
         Assert.assertEquals(employeePayrollDataList1.get(0).id, employeePayrollDataForCheck.get(0).id);
         Assert.assertEquals(employeePayrollDataList1.get(0).name, employeePayrollDataForCheck.get(0).name);
         Assert.assertEquals(employeePayrollDataList1.get(0).salary, employeePayrollDataForCheck.get(0).salary, 0.001);
