@@ -43,15 +43,21 @@ public class EmployeePayrollFileIOService {
     }
 
     //Method to Read Data From File
-    public List<String> readData() {
-        List<String> employeePayrollDataList = new ArrayList<>();
+    public List<EmployeePayrollData> readData() {
+        List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
         try {
             Files.lines(new File("C:/Users/Rituparna Biswas/eclipse-workspace/DM FILE_IO Java File IO/src/main/java/com/bridgelabz/javapractice/payroll-file.txt").toPath()).map(line -> line.trim())
-                    .forEach(line -> employeePayrollDataList.add(line));
+                    .forEach(line -> {
+                        line = line.trim();
+                        line = line.replace(":", "").replace("  ", " ").replace("'", "").replace("=", "= ").replace(",", " ,").replace("}", " }");
+                        String[] arr = line.split(" ");
+                        employeePayrollDataList
+                                .add(new EmployeePayrollData(Integer.parseInt(arr[1]), arr[4] + " " + arr[5], Double.parseDouble(arr[8])));
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(employeePayrollDataList);
+        //System.out.println(employeePayrollDataList);
         return employeePayrollDataList;
     }
 }

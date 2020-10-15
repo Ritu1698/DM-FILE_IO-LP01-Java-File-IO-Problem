@@ -1,17 +1,17 @@
 package com.bridgelabz.javapractice;
 
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class EmployeePayrollService {
 
-    public void readDataFileIO(IOService ioService) {
-        if (ioService.equals(IOService.FILE_IO))
-            System.out.println(new EmployeePayrollFileIOService().readData());
-
+    public List<EmployeePayrollData> readDataFileIO(IOService ioService) {
+        List<EmployeePayrollData> employeePayrollDataArrayList = new ArrayList<>();
+        if (ioService.equals(IOService.FILE_IO)) {
+            employeePayrollDataArrayList = new EmployeePayrollFileIOService().readData();
+        }
+        return employeePayrollDataArrayList;
     }
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
