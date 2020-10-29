@@ -1,3 +1,3 @@
-EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
-EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
-EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
+EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}
+EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='4567890123', gender='F', address='Dubai'}
+EmployeePayrollData{id=3, name='Charlie', startDate=2018-05-21, phone_number='7890123456', gender='M', address='NY'}

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +50,10 @@ public class EmployeePayrollFileIOService {
             Files.lines(new File("C:/Users/Rituparna Biswas/eclipse-workspace/DM FILE_IO Java File IO/src/main/java/com/bridgelabz/javapractice/payroll-file.txt").toPath()).map(line -> line.trim())
                     .forEach(line -> {
                         line = line.trim();
-                        line = line.replace(":", "").replace("  ", " ").replace("'", "").replace("=", "= ").replace(",", " ,").replace("}", " }");
+                        line = line.replace(":", "").replace("  ", " ").replace("'", "").replace("=", "= ").replace(",", " ,").replace("}", " }").replace("-", " - ");
                         String[] arr = line.split(" ");
                         employeePayrollDataList
-                                .add(new EmployeePayrollData(Integer.parseInt(arr[1]), arr[4] + " " + arr[5], Double.parseDouble(arr[8])));
+                                .add(new EmployeePayrollData(Integer.parseInt(arr[1]), arr[4], LocalDate.of(Integer.parseInt(arr[7]), Integer.parseInt(arr[9]), Integer.parseInt(arr[11])), arr[14], arr[17], arr[20]));
                     });
         } catch (IOException e) {
             e.printStackTrace();

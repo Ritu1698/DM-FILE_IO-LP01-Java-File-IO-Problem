@@ -1,5 +1,7 @@
 package com.bridgelabz.javapractice;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,12 +16,23 @@ public class EmployeePayrollService {
         return employeePayrollDataArrayList;
     }
 
+    public boolean checkEmployeePayrollInSyncWithDB(String name) {
+        List<EmployeePayrollData> employeePayrollDataList = employeePayrollDBService.getEmployeePayrollData(name);
+        return  employeePayrollDataList.get(0).equals(getEmployeePayRollData(name));
+    }
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
 
-    private List<EmployeePayrollData> employeePayrollList;
+    private static List<EmployeePayrollData> employeePayrollList;
+    private static EmployeePayrollDBService employeePayrollDBService;
+
+    public EmployeePayrollService() {
+        employeePayrollDBService = EmployeePayrollDBService.getInstance();
+    }
 
     //Parameterized Constructor
     public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
+        this();
         this.employeePayrollList = employeePayrollList;
     }
 
@@ -37,11 +50,20 @@ public class EmployeePayrollService {
     public void readEmployeePayRollData(Scanner consoleInputReader) {
         System.out.println("Enter Employee Id: ");
         int id = consoleInputReader.nextInt();
-        System.out.println("Enter Employee Salary: ");
-        double salary = consoleInputReader.nextDouble();
+        System.out.println("Enter Employee Year Month & Date: ");
+        int year = consoleInputReader.nextInt();
+        int month = consoleInputReader.nextInt();
+        int date = consoleInputReader.nextInt();
+        LocalDate startDate = LocalDate.of(year, month, date);
         System.out.println("Enter Employee Name: ");
         String name = consoleInputReader.next();
-        employeePayrollList.add(new EmployeePayrollData(id, name, salary));
+        System.out.println("Enter Employee Number: ");
+        String phone_number = consoleInputReader.next();
+        System.out.println("Enter Employee Gender: ");
+        String gender = consoleInputReader.next();
+        System.out.println("Enter Employee Address: ");
+        String address = consoleInputReader.next();
+        employeePayrollList.add(new EmployeePayrollData(id, name, startDate, phone_number, gender, address));
     }
 
     //Method to Write Data to File
@@ -65,5 +87,26 @@ public class EmployeePayrollService {
         else if (ioService.equals(IOService.FILE_IO))
             return new EmployeePayrollFileIOService().countEntries();
         return 0;
+    }
+
+    public static List<EmployeePayrollData> readEmployeePayrollData(IOService ioService) throws SQLException {
+        if(ioService.equals(IOService.DB_IO))
+            employeePayrollList = employeePayrollDBService.readData();
+        return employeePayrollList;
+    }
+
+    public void updateEmployeeName(String name, String newNumber) throws SQLException {
+
+        int result = employeePayrollDBService.updateEmployeeData(name,newNumber);
+        if(result == 0) return;
+        EmployeePayrollData employeePayrollData = this.getEmployeePayRollData(name);
+        if(employeePayrollData != null) employeePayrollData.phone_number = newNumber;
+    }
+
+    private EmployeePayrollData getEmployeePayRollData(String name) {
+        return  employeePayrollList.stream()
+                .filter(employeePayRollDataItem -> employeePayRollDataItem.name.equals(name))
+                .findFirst()
+                .orElse(null);
     }
 }

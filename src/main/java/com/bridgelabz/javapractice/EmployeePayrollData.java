@@ -1,14 +1,25 @@
 package com.bridgelabz.javapractice;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.function.DoubleConsumer;
+
 public class EmployeePayrollData {
     public int id;
     public String name;
-    public double salary;
+    public LocalDate startDate;
+    public String phone_number;
+    public String gender;
+    public String address;
 
-    public EmployeePayrollData(int id, String name, double salary) {
+
+    public EmployeePayrollData(int id, String name, LocalDate startDate, String phone_number, String gender, String address) {
         this.id = id;
         this.name = name;
-        this.salary = salary;
+        this.startDate = startDate;
+        this.phone_number = phone_number;
+        this.gender = gender;
+        this.address = address;
     }
 
     @Override
@@ -16,7 +27,18 @@ public class EmployeePayrollData {
         return "EmployeePayrollData{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", salary=" + salary +
+                ", startDate=" + startDate +
+                ", phone_number='" + phone_number + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address='" + address + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        EmployeePayrollData that = (EmployeePayrollData) o;
+        return id == that.id && phone_number.equals(that.phone_number) && name.equals(that.name);
     }
 }
