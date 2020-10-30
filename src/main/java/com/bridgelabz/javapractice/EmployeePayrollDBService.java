@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeePayrollDBService {
-    String query = "Select * from employee;";
+    private static final String query = "Select * from employee;";
+    private static final String getCount = "Select count(gender) as count from employee_payroll where gender =  ? ";
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
 
@@ -68,6 +69,22 @@ public class EmployeePayrollDBService {
 
 
         return employeePayrollDataList;
+    }
+
+    public int readDataGivenGender(String gender) {
+        int count = 0;
+        try (Connection connection = this.getConnection();) {
+            employeePayrollDataStatement = connection.prepareStatement(getCount);
+            employeePayrollDataStatement.setString(1, gender);
+            ResultSet resultSet = employeePayrollDataStatement.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 
     private Connection getConnection() {
@@ -142,5 +159,6 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
     }
+
 
 }

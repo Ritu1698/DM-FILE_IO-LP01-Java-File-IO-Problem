@@ -15,6 +15,7 @@ public class EmployeePayrollServiceTest {
     List<EmployeePayrollData> employeePayrollDataForCheck;
     String startDate = "2019-01-01";
     String endDate = "2020-10-30";
+    String gender = "M";
 
     @Before
     public void initialize() {
@@ -79,4 +80,11 @@ public class EmployeePayrollServiceTest {
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollDataWithDateRange(EmployeePayrollService.IOService.DB_IO, startDate, endDate);
         Assert.assertEquals(2,employeePayrollServices.size());
     }
+
+    @Test
+    public void givenGenderOfEmployee_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
+      int  countEmployees = EmployeePayrollService.readEmployeePayrollDataGivenGender(EmployeePayrollService.IOService.DB_IO, gender);
+      Assert.assertEquals(2,countEmployees);
+    }
+
 }
