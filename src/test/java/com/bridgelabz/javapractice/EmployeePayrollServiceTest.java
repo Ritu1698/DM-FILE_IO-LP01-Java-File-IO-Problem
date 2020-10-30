@@ -78,30 +78,37 @@ public class EmployeePayrollServiceTest {
     public void givenDateRangeForEmployee_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollDataWithDateRange(EmployeePayrollService.IOService.DB_IO, startDate, endDate);
-        Assert.assertEquals(2,employeePayrollServices.size());
+        Assert.assertEquals(2, employeePayrollServices.size());
     }
 
     @Test
     public void givenGenderOfEmployee_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
-      int  countEmployees = EmployeePayrollService.readEmployeePayrollDataGivenGender(EmployeePayrollService.IOService.DB_IO, gender);
-      Assert.assertEquals(2,countEmployees);
+        int countEmployees = EmployeePayrollService.readEmployeePayrollDataGivenGender(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(2, countEmployees);
     }
 
     @Test
     public void givenGenderOfEmployee_whenSalarySumRetrieved_shouldMatchEmployeeSum() throws SQLException {
-        double  countSalarySum = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnSumOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
-        Assert.assertEquals(7000000,countSalarySum,0);
+        double countSalarySum = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnSumOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(7000000, countSalarySum, 0);
     }
 
     @Test
     public void givenGenderOfEmployee_whenSalaryAvgRetrieved_shouldMatchEmployeeAvg() throws SQLException {
-        double  countSalaryAvg = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnAvgOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
-        Assert.assertEquals(3500000,countSalaryAvg,0);
+        double countSalaryAvg = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnAvgOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(3500000, countSalaryAvg, 0);
     }
+
     @Test
     public void givenGenderOfEmployee_whenSalaryMinRetrieved_shouldMatchEmployeeMin() throws SQLException {
-        double  countSalaryMin = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnMinOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
-        Assert.assertEquals(3000000,countSalaryMin,0);
+        double countSalaryMin = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnMinOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(3000000, countSalaryMin, 0);
+    }
+
+    @Test
+    public void givenGenderOfEmployee_whenSalaryMaxRetrieved_shouldMatchEmployeeMax() throws SQLException {
+        double countSalaryMax = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnMaxOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(4000000, countSalaryMax, 0);
     }
 
 }

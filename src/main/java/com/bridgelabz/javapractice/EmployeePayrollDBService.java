@@ -13,6 +13,7 @@ public class EmployeePayrollDBService {
     private static final String getSalarySum = "Select sum(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryAvg = "Select avg(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryMin = "Select min(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
+    private static final String getSalaryMax = "Select max(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
 
@@ -52,7 +53,7 @@ public class EmployeePayrollDBService {
     public List<EmployeePayrollData> readDataWithDateRange(String startDateRange, String endDateRange) {
         List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
         String query1 = String.format("Select * from employee where start between cast('%s' as date) and cast('%s' as date);"
-        ,startDateRange,endDateRange);
+                , startDateRange, endDateRange);
         try {
             Connection connection = this.getConnection();
             Statement statement = connection.createStatement();
@@ -103,7 +104,7 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
 
-        return  salarySum;
+        return salarySum;
     }
 
     public double readDataGivenGenderReturnSalaryAvg(String gender) {
@@ -119,7 +120,7 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
 
-        return  salaryAvg;
+        return salaryAvg;
     }
 
     public double readDataGivenGenderReturnSalaryMin(String gender) {
@@ -136,7 +137,23 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
 
-        return  salaryMin;
+        return salaryMin;
+    }
+
+    public double readDataGivenGenderReturnSalaryMax(String gender) {
+        double salaryMax = 0;
+        try (Connection connection = this.getConnection();) {
+            employeePayrollDataStatement = connection.prepareStatement(getSalaryMax);
+            employeePayrollDataStatement.setString(1, gender);
+            ResultSet resultSet = employeePayrollDataStatement.executeQuery();
+            while (resultSet.next()) {
+                salaryMax = resultSet.getInt("salary");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return salaryMax;
     }
 
     private Connection getConnection() {
@@ -211,4 +228,5 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
     }
+
 }

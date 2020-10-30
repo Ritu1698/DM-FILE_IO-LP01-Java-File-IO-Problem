@@ -96,12 +96,14 @@ public class EmployeePayrollService {
         return employeePayrollList;
     }
 
+    //Read EmployeePayrollData Using Date Range From The payroll_service Database using SQL
     public static List<EmployeePayrollData> readEmployeePayrollDataWithDateRange(IOService ioService, String startDate, String endDate) {
         if (ioService.equals(IOService.DB_IO))
-            employeePayrollList = employeePayrollDBService.readDataWithDateRange(startDate,endDate);
+            employeePayrollList = employeePayrollDBService.readDataWithDateRange(startDate, endDate);
         return employeePayrollList;
     }
 
+    //Read EmployeePayrollData Return(Count) Group By Gender From The payroll_service Database using SQL
     public static int readEmployeePayrollDataGivenGender(IOService ioService, String gender) {
         int countEmployees = 0;
         if (ioService.equals(IOService.DB_IO))
@@ -109,6 +111,7 @@ public class EmployeePayrollService {
         return countEmployees;
     }
 
+    //Read EmployeePayrollData Return(Sum) Group By Gender From The payroll_service Database using SQL
     public static double readEmployeePayrollDataGivenGenderReturnSumOfSalary(IOService ioService, String gender) {
         double salarySum = 0;
         if (ioService.equals(IOService.DB_IO))
@@ -117,6 +120,7 @@ public class EmployeePayrollService {
 
     }
 
+    //Read EmployeePayrollData Return(Avg) Group By Gender From The payroll_service Database using SQL
     public static double readEmployeePayrollDataGivenGenderReturnAvgOfSalary(IOService ioService, String gender) {
         double salaryAvg = 0;
         if (ioService.equals(IOService.DB_IO))
@@ -124,11 +128,20 @@ public class EmployeePayrollService {
         return salaryAvg;
     }
 
+    //Read EmployeePayrollData Return(Min) Group By Gender From The payroll_service Database using SQL
     public static double readEmployeePayrollDataGivenGenderReturnMinOfSalary(IOService ioService, String gender) {
         double salaryMin = 0;
         if (ioService.equals(IOService.DB_IO))
             salaryMin = employeePayrollDBService.readDataGivenGenderReturnSalaryMin(gender);
         return salaryMin;
+    }
+
+    //Read EmployeePayrollData Return(Max) Group By Gender From The payroll_service Database using SQL
+    public static double readEmployeePayrollDataGivenGenderReturnMaxOfSalary(IOService ioService, String gender) {
+        double salaryMax = 0;
+        if (ioService.equals(IOService.DB_IO))
+            salaryMax = employeePayrollDBService.readDataGivenGenderReturnSalaryMax(gender);
+        return salaryMax;
     }
 
     //Update Phone Number From The payroll_service Database
