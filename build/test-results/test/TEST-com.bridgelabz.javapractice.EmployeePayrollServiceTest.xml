@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-15T06:24:08" hostname="LAPTOP-RGI87V6B" time="0.023">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-30T02:44:49" hostname="LAPTOP-RGI87V6B" time="0.758">
   <properties/>
-  <testcase name="given3Employees_whenWrittenToFile_shouldMatchEntries" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.023"/>
-  <system-out><![CDATA[EmployeePayrollData{id=1, name='Jeff Bezos', salary=100000.0}
-EmployeePayrollData{id=2, name='Bill Gates', salary=200000.0}
-EmployeePayrollData{id=3, name='Mark Zuckerberg', salary=300000.0}
+  <testcase name="givenNewNumberForEmployee_whenUpdated_shouldSyncWithDB" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.758"/>
+  <system-out><![CDATA[Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
+Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@75b83381
+Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@6c40c8f8
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -65,7 +65,7 @@ public class EmployeePayrollDBService {
     }
 
     public int updateEmployeeDataUsingStatement(String name, String newNumber) throws SQLException {
-        String query = String.format("update employee set phone_number = %s where name = %s;", newNumber, name);
+        String query = String.format("update employee set phone_number='%s' where name='%s';", newNumber, name);
         try (Connection connection = this.getConnection()) {
             Statement statement = connection.createStatement();
             return statement.executeUpdate(query);
@@ -77,7 +77,7 @@ public class EmployeePayrollDBService {
 
     public List<EmployeePayrollData> getEmployeePayrollData(String name) {
         List<EmployeePayrollData> employeePayrollDataList = null;
-        if(this.employeePayrollDataStatement == null)
+        if(employeePayrollDataStatement == null)
             this.prepareStatementForEmployeeData();
         try {
             employeePayrollDataStatement.setString(1, name);

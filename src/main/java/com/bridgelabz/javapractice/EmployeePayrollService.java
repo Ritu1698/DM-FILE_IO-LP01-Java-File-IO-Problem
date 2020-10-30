@@ -95,7 +95,7 @@ public class EmployeePayrollService {
         return employeePayrollList;
     }
 
-    public void updateEmployeeName(String name, String newNumber) throws SQLException {
+    public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
 
         int result = employeePayrollDBService.updateEmployeeData(name,newNumber);
         if(result == 0) return;
