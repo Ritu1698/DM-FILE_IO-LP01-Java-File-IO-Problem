@@ -13,6 +13,8 @@ import java.util.List;
 public class EmployeePayrollServiceTest {
     EmployeePayrollService employeePayrollService;
     List<EmployeePayrollData> employeePayrollDataForCheck;
+    String startDate = "2019-01-01";
+    String endDate = "2020-10-30";
 
     @Before
     public void initialize() {
@@ -27,7 +29,6 @@ public class EmployeePayrollServiceTest {
         employeePayrollDataForCheck.add(new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 01, 03), "1234567890", "M", "California"));
         employeePayrollDataForCheck.add(new EmployeePayrollData(2, "Terisa", LocalDate.of(2019, 11, 13), "4567890123", "F", "Dubai"));
         employeePayrollDataForCheck.add(new EmployeePayrollData(3, "Charlie", LocalDate.of(2018, 05, 21), "7890123456", "M", "NY"));
-
     }
 
     @Test
@@ -48,7 +49,6 @@ public class EmployeePayrollServiceTest {
 
     @Test
     public void givenEmployeeInDB_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
-        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         Assert.assertEquals(3, employeePayrollServices.size());
@@ -60,6 +60,7 @@ public class EmployeePayrollServiceTest {
         Assert.assertEquals(employeePayrollServices.get(2).name, employeePayrollDataForCheck.get(2).name);
 
     }
+
     @Test
     public void givenNewNumberForEmployee_whenUpdated_shouldSyncWithDB() throws SQLException {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
@@ -70,5 +71,12 @@ public class EmployeePayrollServiceTest {
         Assert.assertTrue(result);
 
 
+    }
+
+    @Test
+    public void givenDateRangeForEmployee_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
+        List<EmployeePayrollData> employeePayrollServices;
+        employeePayrollServices = EmployeePayrollService.readEmployeePayrollDataWithDateRange(EmployeePayrollService.IOService.DB_IO, startDate, endDate);
+        Assert.assertEquals(2,employeePayrollServices.size());
     }
 }

@@ -18,7 +18,7 @@ public class EmployeePayrollService {
 
     public boolean checkEmployeePayrollInSyncWithDB(String name) {
         List<EmployeePayrollData> employeePayrollDataList = employeePayrollDBService.getEmployeePayrollData(name);
-        return  employeePayrollDataList.get(0).equals(getEmployeePayRollData(name));
+        return employeePayrollDataList.get(0).equals(getEmployeePayRollData(name));
     }
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
@@ -89,22 +89,31 @@ public class EmployeePayrollService {
         return 0;
     }
 
+    //Read EmployeePayrollData From The payroll_service Database using SQL
     public static List<EmployeePayrollData> readEmployeePayrollData(IOService ioService) throws SQLException {
-        if(ioService.equals(IOService.DB_IO))
+        if (ioService.equals(IOService.DB_IO))
             employeePayrollList = employeePayrollDBService.readData();
         return employeePayrollList;
     }
 
-    public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
-
-        int result = employeePayrollDBService.updateEmployeeData(name,newNumber);
-        if(result == 0) return;
-        EmployeePayrollData employeePayrollData = this.getEmployeePayRollData(name);
-        if(employeePayrollData != null) employeePayrollData.phone_number = newNumber;
+    public static List<EmployeePayrollData> readEmployeePayrollDataWithDateRange(IOService ioService, String startDate, String endDate) {
+        if (ioService.equals(IOService.DB_IO))
+            employeePayrollList = employeePayrollDBService.readDataWithDateRange(startDate,endDate);
+        return employeePayrollList;
     }
 
+    //Update Phone Number From The payroll_service Database
+    public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
+
+        int result = employeePayrollDBService.updateEmployeeData(name, newNumber);
+        if (result == 0) return;
+        EmployeePayrollData employeePayrollData = this.getEmployeePayRollData(name);
+        if (employeePayrollData != null) employeePayrollData.phone_number = newNumber;
+    }
+
+    //GetData from EmployeePayrollData on Name Match
     private EmployeePayrollData getEmployeePayRollData(String name) {
-        return  employeePayrollList.stream()
+        return employeePayrollList.stream()
                 .filter(employeePayRollDataItem -> employeePayRollDataItem.name.equals(name))
                 .findFirst()
                 .orElse(null);

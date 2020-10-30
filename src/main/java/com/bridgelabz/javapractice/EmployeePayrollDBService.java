@@ -11,11 +11,12 @@ public class EmployeePayrollDBService {
     String query = "Select * from employee;";
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
-    private EmployeePayrollDBService(){
+
+    private EmployeePayrollDBService() {
 
     }
 
-    public static EmployeePayrollDBService getInstance(){
+    public static EmployeePayrollDBService getInstance() {
         if (employeePayrollDBService == null)
             employeePayrollDBService = new EmployeePayrollDBService();
         return employeePayrollDBService;
@@ -27,6 +28,31 @@ public class EmployeePayrollDBService {
             Connection connection = this.getConnection();
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(query);
+            while (result.next()) {
+                int id = result.getInt("employee_id");
+                String name = result.getString("name");
+                String phone_number = result.getString("phone_number");
+                LocalDate startDate = result.getDate("start").toLocalDate();
+                String gender = result.getString("gender");
+                String address = result.getString("address");
+                employeePayrollDataList.add(new EmployeePayrollData(id, name, startDate, phone_number, gender, address));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return employeePayrollDataList;
+    }
+
+    public List<EmployeePayrollData> readDataWithDateRange(String startDateRange, String endDateRange) {
+        List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
+        String query1 = String.format("Select * from employee where start between cast('%s' as date) and cast('%s' as date);"
+        ,startDateRange,endDateRange);
+        try {
+            Connection connection = this.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery(query1);
             while (result.next()) {
                 int id = result.getInt("employee_id");
                 String name = result.getString("name");
@@ -61,7 +87,7 @@ public class EmployeePayrollDBService {
     }
 
     public int updateEmployeeData(String name, String newNumber) throws SQLException {
-        return  this.updateEmployeeDataUsingStatement(name, newNumber);
+        return this.updateEmployeeDataUsingStatement(name, newNumber);
     }
 
     public int updateEmployeeDataUsingStatement(String name, String newNumber) throws SQLException {
@@ -77,46 +103,44 @@ public class EmployeePayrollDBService {
 
     public List<EmployeePayrollData> getEmployeePayrollData(String name) {
         List<EmployeePayrollData> employeePayrollDataList = null;
-        if(employeePayrollDataStatement == null)
+        if (employeePayrollDataStatement == null)
             this.prepareStatementForEmployeeData();
         try {
             employeePayrollDataStatement.setString(1, name);
             ResultSet resultSet = employeePayrollDataStatement.executeQuery();
             employeePayrollDataList = this.getEmployeePayrollData(resultSet);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return employeePayrollDataList;
     }
 
-    private List<EmployeePayrollData> getEmployeePayrollData(ResultSet resultSet){
+    private List<EmployeePayrollData> getEmployeePayrollData(ResultSet resultSet) {
         List<EmployeePayrollData> employeePayrollDataList = new ArrayList<>();
-        try{
-            while (resultSet.next()){
+        try {
+            while (resultSet.next()) {
                 int id = resultSet.getInt("employee_id");
                 String name = resultSet.getString("name");
-                String number= resultSet.getString("phone_number");
+                String number = resultSet.getString("phone_number");
                 String address = resultSet.getString("address");
                 LocalDate startDate = resultSet.getDate("start").toLocalDate();
                 String gender = resultSet.getString("gender");
-                employeePayrollDataList.add(new EmployeePayrollData(id,name,startDate,number,gender,address));
+                employeePayrollDataList.add(new EmployeePayrollData(id, name, startDate, number, gender, address));
             }
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return employeePayrollDataList;
     }
 
     private void prepareStatementForEmployeeData() {
-        try{
+        try {
             Connection connection = this.getConnection();
             String query = "select * from employee where name = ?";
             employeePayrollDataStatement = connection.prepareStatement(query);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

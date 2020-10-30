@@ -1,6 +1,2 @@
 nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
 HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
-nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@75b83381
-nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@6c40c8f8
