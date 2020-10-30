@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-30T09:48:24" hostname="LAPTOP-RGI87V6B" time="0.491">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-30T09:52:20" hostname="LAPTOP-RGI87V6B" time="0.682">
   <properties/>
-  <testcase name="givenGenderOfEmployee_whenSalaryAvgRetrieved_shouldMatchEmployeeAvg" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.491"/>
+  <testcase name="givenGenderOfEmployee_whenSalaryMinRetrieved_shouldMatchEmployeeMin" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.682"/>
   <system-out><![CDATA[Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
 Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
 ]]></system-out>

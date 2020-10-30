@@ -124,6 +124,13 @@ public class EmployeePayrollService {
         return salaryAvg;
     }
 
+    public static double readEmployeePayrollDataGivenGenderReturnMinOfSalary(IOService ioService, String gender) {
+        double salaryMin = 0;
+        if (ioService.equals(IOService.DB_IO))
+            salaryMin = employeePayrollDBService.readDataGivenGenderReturnSalaryMin(gender);
+        return salaryMin;
+    }
+
     //Update Phone Number From The payroll_service Database
     public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
 

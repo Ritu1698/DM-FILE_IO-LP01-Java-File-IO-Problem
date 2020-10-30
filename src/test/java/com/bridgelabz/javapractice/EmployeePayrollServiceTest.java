@@ -98,5 +98,10 @@ public class EmployeePayrollServiceTest {
         double  countSalaryAvg = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnAvgOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
         Assert.assertEquals(3500000,countSalaryAvg,0);
     }
+    @Test
+    public void givenGenderOfEmployee_whenSalaryMinRetrieved_shouldMatchEmployeeMin() throws SQLException {
+        double  countSalaryMin = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnMinOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(3000000,countSalaryMin,0);
+    }
 
 }
