@@ -117,6 +117,13 @@ public class EmployeePayrollService {
 
     }
 
+    public static double readEmployeePayrollDataGivenGenderReturnAvgOfSalary(IOService ioService, String gender) {
+        double salaryAvg = 0;
+        if (ioService.equals(IOService.DB_IO))
+            salaryAvg = employeePayrollDBService.readDataGivenGenderReturnSalaryAvg(gender);
+        return salaryAvg;
+    }
+
     //Update Phone Number From The payroll_service Database
     public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
 

@@ -11,6 +11,7 @@ public class EmployeePayrollDBService {
     private static final String query = "Select * from employee;";
     private static final String getCount = "Select count(gender) as count from employee_payroll where gender =  ? ";
     private static final String getSalarySum = "Select sum(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
+    private static final String getSalaryAvg = "Select avg(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
 
@@ -104,6 +105,22 @@ public class EmployeePayrollDBService {
         return  salarySum;
     }
 
+    public double readDataGivenGenderReturnSalaryAvg(String gender) {
+        double salaryAvg = 0;
+        try (Connection connection = this.getConnection();) {
+            employeePayrollDataStatement = connection.prepareStatement(getSalaryAvg);
+            employeePayrollDataStatement.setString(1, gender);
+            ResultSet resultSet = employeePayrollDataStatement.executeQuery();
+            while (resultSet.next()) {
+                salaryAvg = resultSet.getInt("salary");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  salaryAvg;
+    }
+
     private Connection getConnection() {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false";
         String userName = "root";
@@ -176,7 +193,5 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
     }
-
-
 
 }

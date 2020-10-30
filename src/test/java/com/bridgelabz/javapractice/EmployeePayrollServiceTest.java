@@ -93,4 +93,10 @@ public class EmployeePayrollServiceTest {
         Assert.assertEquals(7000000,countSalarySum,0);
     }
 
+    @Test
+    public void givenGenderOfEmployee_whenSalaryAvgRetrieved_shouldMatchEmployeeAvg() throws SQLException {
+        double  countSalaryAvg = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnAvgOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(3500000,countSalaryAvg,0);
+    }
+
 }
