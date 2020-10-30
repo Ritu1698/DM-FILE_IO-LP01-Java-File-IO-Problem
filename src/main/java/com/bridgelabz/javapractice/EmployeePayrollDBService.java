@@ -10,6 +10,7 @@ import java.util.List;
 public class EmployeePayrollDBService {
     private static final String query = "Select * from employee;";
     private static final String getCount = "Select count(gender) as count from employee_payroll where gender =  ? ";
+    private static final String getSalarySum = "Select sum(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
 
@@ -87,6 +88,22 @@ public class EmployeePayrollDBService {
         return count;
     }
 
+    public double readDataGivenGenderReturnSalarySum(String gender) {
+        double salarySum = 0;
+        try (Connection connection = this.getConnection();) {
+            employeePayrollDataStatement = connection.prepareStatement(getSalarySum);
+            employeePayrollDataStatement.setString(1, gender);
+            ResultSet resultSet = employeePayrollDataStatement.executeQuery();
+            while (resultSet.next()) {
+                salarySum = resultSet.getInt("salary");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return  salarySum;
+    }
+
     private Connection getConnection() {
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false";
         String userName = "root";
@@ -159,6 +176,7 @@ public class EmployeePayrollDBService {
             e.printStackTrace();
         }
     }
+
 
 
 }

@@ -109,6 +109,14 @@ public class EmployeePayrollService {
         return countEmployees;
     }
 
+    public static double readEmployeePayrollDataGivenGenderReturnSumOfSalary(IOService ioService, String gender) {
+        double salarySum = 0;
+        if (ioService.equals(IOService.DB_IO))
+            salarySum = employeePayrollDBService.readDataGivenGenderReturnSalarySum(gender);
+        return salarySum;
+
+    }
+
     //Update Phone Number From The payroll_service Database
     public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
 

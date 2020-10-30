@@ -87,4 +87,10 @@ public class EmployeePayrollServiceTest {
       Assert.assertEquals(2,countEmployees);
     }
 
+    @Test
+    public void givenGenderOfEmployee_whenSalarySumRetrieved_shouldMatchEmployeeSum() throws SQLException {
+        double  countSalarySum = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnSumOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
+        Assert.assertEquals(7000000,countSalarySum,0);
+    }
+
 }
