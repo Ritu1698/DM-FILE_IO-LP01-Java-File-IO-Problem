@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-01T01:34:16" hostname="LAPTOP-RGI87V6B" time="2.843">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-01T02:18:58" hostname="LAPTOP-RGI87V6B" time="2.571">
   <properties/>
-  <testcase name="givenName_shouldReturn" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="2.843"/>
+  <testcase name="givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="2.571"/>
   <system-out><![CDATA[Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@76029d05
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
 Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3d9b5067
-com.mysql.cj.jdbc.result.ResultSetImpl@7ee8ece6
-9
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@524e9435
+com.mysql.cj.jdbc.result.ResultSetImpl@324011c4
+10
 Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@1e1c6669
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3d1aaaa9
+Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@4e7652f
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

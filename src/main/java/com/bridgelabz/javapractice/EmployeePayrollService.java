@@ -12,6 +12,10 @@ public class EmployeePayrollService {
         employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender,number));
     }
 
+    public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) {
+        employeePayrollList.add(employeePayrollDBService.addEmployeePayrollToBothTables(name, start, address, gender,number,basic_pay));
+    }
+
     public List<EmployeePayrollData> readDataFileIO(IOService ioService) {
         List<EmployeePayrollData> employeePayrollDataArrayList = new ArrayList<>();
         if (ioService.equals(IOService.FILE_IO)) {

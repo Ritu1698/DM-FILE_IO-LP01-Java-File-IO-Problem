@@ -122,5 +122,17 @@ public class EmployeePayrollServiceTest {
 
     }
 
+    @Test
+    public void givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB() throws SQLException {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollServices;
+        employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        EmployeePayrollService.addEmployeeDataToBoth("Jessica",LocalDate.now(),"Paris","F","3300661199",3000000.00);
+        boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Jessica");
+        Assert.assertTrue(result);
+
+    }
+
+
 
 }
