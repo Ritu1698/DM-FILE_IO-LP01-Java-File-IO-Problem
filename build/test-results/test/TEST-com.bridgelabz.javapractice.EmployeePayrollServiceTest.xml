@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-10-30T09:57:38" hostname="LAPTOP-RGI87V6B" time="0.689">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-01T01:34:16" hostname="LAPTOP-RGI87V6B" time="2.843">
   <properties/>
-  <testcase name="givenGenderOfEmployee_whenSalaryMaxRetrieved_shouldMatchEmployeeMax" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.689"/>
+  <testcase name="givenName_shouldReturn" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="2.843"/>
   <system-out><![CDATA[Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@76029d05
+Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3d9b5067
+com.mysql.cj.jdbc.result.ResultSetImpl@7ee8ece6
+9
+Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@1e1c6669
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

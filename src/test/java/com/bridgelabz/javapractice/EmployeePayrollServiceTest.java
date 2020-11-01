@@ -52,7 +52,7 @@ public class EmployeePayrollServiceTest {
     public void givenEmployeeInDB_whenRetrieved_shouldMatchEmployeeCount() throws SQLException {
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
-        Assert.assertEquals(3, employeePayrollServices.size());
+        Assert.assertEquals(4, employeePayrollServices.size());
         Assert.assertEquals(employeePayrollServices.get(0).id, employeePayrollDataForCheck.get(0).id);
         Assert.assertEquals(employeePayrollServices.get(0).name, employeePayrollDataForCheck.get(0).name);
         Assert.assertEquals(employeePayrollServices.get(1).id, employeePayrollDataForCheck.get(1).id);
@@ -110,5 +110,17 @@ public class EmployeePayrollServiceTest {
         double countSalaryMax = EmployeePayrollService.readEmployeePayrollDataGivenGenderReturnMaxOfSalary(EmployeePayrollService.IOService.DB_IO, gender);
         Assert.assertEquals(4000000, countSalaryMax, 0);
     }
+
+    @Test
+    public void givenNewEmployee_whenAdded_shouldBeInSyncWithDB() throws SQLException {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollServices;
+        employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        EmployeePayrollService.addEmployeeData("Mark",LocalDate.now(),"Mexico","M","123468768");
+        boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Mark");
+        Assert.assertTrue(result);
+
+    }
+
 
 }

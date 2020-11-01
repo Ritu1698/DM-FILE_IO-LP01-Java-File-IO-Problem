@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class EmployeePayrollService {
 
+    public static void addEmployeeData(String name, LocalDate date, String address, String gender, String number) {
+        employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender,number));
+    }
+
     public List<EmployeePayrollData> readDataFileIO(IOService ioService) {
         List<EmployeePayrollData> employeePayrollDataArrayList = new ArrayList<>();
         if (ioService.equals(IOService.FILE_IO)) {

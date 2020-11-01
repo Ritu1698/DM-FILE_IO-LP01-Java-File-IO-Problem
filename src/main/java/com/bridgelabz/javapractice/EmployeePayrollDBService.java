@@ -1,7 +1,5 @@
 package com.bridgelabz.javapractice;
 
-import com.mysql.cj.xdevapi.Result;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,6 +23,31 @@ public class EmployeePayrollDBService {
         if (employeePayrollDBService == null)
             employeePayrollDBService = new EmployeePayrollDBService();
         return employeePayrollDBService;
+    }
+
+    public EmployeePayrollData addEmployeePayroll(String name, LocalDate start, String address, String gender, String number) {
+        int employeeID = -1;
+        EmployeePayrollData employeePayrollData = null;
+        String sqlQuery = String.format("insert into employee (name, gender, start, address, phone_number) " +
+                "values ( '%s', '%s', '%s', '%s','%s');", name, gender, Date.valueOf(start), address, number);
+        try{
+            Connection connection = this.getConnection();
+            Statement statement = connection.createStatement();
+            int rowAffected = statement.executeUpdate(sqlQuery, statement.RETURN_GENERATED_KEYS);
+            if(rowAffected ==1){
+                ResultSet resultSet = statement.getGeneratedKeys();
+                System.out.println(resultSet);
+                if (resultSet.next()) {
+                    employeeID = resultSet.getInt(1);
+                    System.out.println(employeeID);
+                }
+            }
+            employeePayrollData = new EmployeePayrollData(employeeID, name, start, number,gender,address);
+        }
+        catch (SQLException e){
+            e.printStackTrace();;
+        }
+        return employeePayrollData;
     }
 
     public List<EmployeePayrollData> readData() throws SQLException {
