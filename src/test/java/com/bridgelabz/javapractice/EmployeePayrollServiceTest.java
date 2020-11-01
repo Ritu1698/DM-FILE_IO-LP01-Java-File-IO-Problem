@@ -116,7 +116,7 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
-        EmployeePayrollService.addEmployeeData("Mark",LocalDate.now(),"Mexico","M","123468768");
+        EmployeePayrollService.addEmployeeData("Mark", LocalDate.now(), "Mexico", "M", "123468768");
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Mark");
         Assert.assertTrue(result);
 
@@ -127,12 +127,23 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
-        EmployeePayrollService.addEmployeeDataToBoth("Jessica",LocalDate.now(),"Paris","F","3300661199",3000000.00);
+        EmployeePayrollService.addEmployeeDataToBoth("Jessica", LocalDate.now(), "Paris", "F", "3300661199", 3000000.00);
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Jessica");
         Assert.assertTrue(result);
 
     }
 
+    @Test
+    public void givenEmployee_WhenRemoved_ShouldMatch() throws SQLException {
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollServices;
+        employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        int size = employeePayrollService.removeEmployeeData("Charlie");
+        Assert.assertEquals(3,size);
+        boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Charlie");
+        Assert.assertFalse(result);
+
+    }
 
 
 }

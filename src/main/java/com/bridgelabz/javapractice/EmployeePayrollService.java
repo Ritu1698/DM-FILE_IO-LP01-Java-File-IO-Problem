@@ -5,15 +5,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class EmployeePayrollService {
 
     public static void addEmployeeData(String name, LocalDate date, String address, String gender, String number) {
-        employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender,number));
+        employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender, number));
     }
 
     public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) throws SQLException {
-        employeePayrollList.add(employeePayrollDBService.addEmployeePayrollToBothTables(name, start, address, gender,number,basic_pay));
+        employeePayrollList.add(employeePayrollDBService.addEmployeePayrollToBothTables(name, start, address, gender, number, basic_pay));
     }
 
     public List<EmployeePayrollData> readDataFileIO(IOService ioService) {
@@ -27,6 +28,13 @@ public class EmployeePayrollService {
     public boolean checkEmployeePayrollInSyncWithDB(String name) {
         List<EmployeePayrollData> employeePayrollDataList = employeePayrollDBService.getEmployeePayrollData(name);
         return employeePayrollDataList.get(0).equals(getEmployeePayRollData(name));
+    }
+
+    public int removeEmployeeData(String name) {
+        employeePayrollDBService.removeEmployeeData(name);
+        employeePayrollList= employeePayrollList.stream().filter(emp -> !emp.name.equals(name)).collect(Collectors.toList());
+        return employeePayrollList.size();
+
     }
 
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}

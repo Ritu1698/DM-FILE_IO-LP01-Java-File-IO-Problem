@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">51.482s</div>
+<div class="counter">0.871s</div>
 <p>duration</p>
 </div>
 </td>
@@ -69,21 +69,18 @@
 <li>
 <a href="#tab2">Standard output</a>
 </li>
-<li>
-<a href="#tab3">Standard error</a>
-</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Failed tests</h2>
 <div class="test">
-<a name="givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB"></a>
-<h3 class="failures">givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB</h3>
+<a name="givenEmployee_WhenRemoved_ShouldMatch"></a>
+<h3 class="failures">givenEmployee_WhenRemoved_ShouldMatch</h3>
 <span class="code">
-<pre>java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
-	at java.util.ArrayList.get(ArrayList.java:433)
-	at com.bridgelabz.javapractice.EmployeePayrollService.checkEmployeePayrollInSyncWithDB(EmployeePayrollService.java:29)
-	at com.bridgelabz.javapractice.EmployeePayrollServiceTest.givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB(EmployeePayrollServiceTest.java:131)
+<pre>java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:86)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at org.junit.Assert.assertTrue(Assert.java:52)
+	at com.bridgelabz.javapractice.EmployeePayrollServiceTest.givenEmployee_WhenRemoved_ShouldMatch(EmployeePayrollServiceTest.java:144)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -147,8 +144,8 @@
 </tr>
 </thead>
 <tr>
-<td class="failures">givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB</td>
-<td class="failures">51.482s</td>
+<td class="failures">givenEmployee_WhenRemoved_ShouldMatch</td>
+<td class="failures">0.871s</td>
 <td class="failures">failed</td>
 </tr>
 </table>
@@ -157,79 +154,11 @@
 <h2>Standard output</h2>
 <span class="code">
 <pre>Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&amp;useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@12ccb108
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@76029d05
 Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&amp;useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@524e9435
-com.mysql.cj.jdbc.result.ResultSetImpl@324011c4
-16
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3feea989
 Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&amp;useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3d1aaaa9
-Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&amp;useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@707fe672
-</pre>
-</span>
-</div>
-<div id="tab3" class="tab">
-<h2>Standard error</h2>
-<span class="code">
-<pre>com.mysql.cj.jdbc.exceptions.MySQLTransactionRollbackException: Lock wait timeout exceeded; try restarting transaction
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:123)
-	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
-	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
-	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1335)
-	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2108)
-	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1245)
-	at com.bridgelabz.javapractice.EmployeePayrollDBService.addEmployeePayrollToBothTables(EmployeePayrollDBService.java:92)
-	at com.bridgelabz.javapractice.EmployeePayrollService.addEmployeeDataToBoth(EmployeePayrollService.java:16)
-	at com.bridgelabz.javapractice.EmployeePayrollServiceTest.givenNewEmployee_whenAdded_shouldAddToBothTablesAndBeInSyncWithDB(EmployeePayrollServiceTest.java:130)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at com.sun.proxy.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.processTestClass(TestWorker.java:118)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:182)
-	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:164)
-	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:412)
-	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
-	at java.lang.Thread.run(Thread.java:748)
+Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@272a21b6
 </pre>
 </span>
 </div>
@@ -241,7 +170,7 @@ Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@707fe672
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.3</a> at 01-Nov-2020 08:58:21</p>
+<a href="http://www.gradle.org">Gradle 6.3</a> at 01-Nov-2020 09:26:35</p>
 </div>
 </div>
 </body>
