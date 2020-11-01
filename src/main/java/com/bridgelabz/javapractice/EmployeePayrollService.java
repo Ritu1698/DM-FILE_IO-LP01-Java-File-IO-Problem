@@ -12,7 +12,7 @@ public class EmployeePayrollService {
         employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender,number));
     }
 
-    public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) {
+    public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) throws SQLException {
         employeePayrollList.add(employeePayrollDBService.addEmployeePayrollToBothTables(name, start, address, gender,number,basic_pay));
     }
 
