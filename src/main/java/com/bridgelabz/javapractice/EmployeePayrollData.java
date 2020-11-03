@@ -2,6 +2,7 @@ package com.bridgelabz.javapractice;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 import java.util.function.DoubleConsumer;
 
 public class EmployeePayrollData {
@@ -40,5 +41,11 @@ public class EmployeePayrollData {
         if (o == null || getClass() != o.getClass()) return false;
         EmployeePayrollData that = (EmployeePayrollData) o;
         return id == that.id && phone_number.equals(that.phone_number) && name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(name,startDate,phone_number,gender,address);
+
     }
 }

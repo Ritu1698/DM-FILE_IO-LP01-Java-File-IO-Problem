@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2020-11-01T03:56:33" hostname="LAPTOP-RGI87V6B" time="0.871">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2020-11-03T09:09:23" hostname="LAPTOP-RGI87V6B" time="0.671">
   <properties/>
-  <testcase name="givenEmployee_WhenRemoved_ShouldMatch" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.871">
-    <failure message="java.lang.AssertionError" type="java.lang.AssertionError">java.lang.AssertionError
-	at org.junit.Assert.fail(Assert.java:86)
-	at org.junit.Assert.assertTrue(Assert.java:41)
-	at org.junit.Assert.assertTrue(Assert.java:52)
-	at com.bridgelabz.javapractice.EmployeePayrollServiceTest.givenEmployee_WhenRemoved_ShouldMatch(EmployeePayrollServiceTest.java:144)
+  <testcase name="given6Employees_whenAddedToDB_shouldMatchEmployeeEntries" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.671">
+    <failure message="java.lang.AssertionError: expected:&lt;8&gt; but was:&lt;6&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;8&gt; but was:&lt;6&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.junit.Assert.assertEquals(Assert.java:631)
+	at com.bridgelabz.javapractice.EmployeePayrollServiceTest.given6Employees_whenAddedToDB_shouldMatchEmployeeEntries(EmployeePayrollServiceTest.java:172)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -57,12 +58,24 @@
 	at java.lang.Thread.run(Thread.java:748)
 </failure>
   </testcase>
-  <system-out><![CDATA[Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@76029d05
-Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3feea989
-Connecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-Connection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@272a21b6
+  <system-out><![CDATA[Employee Being Added: Samuel
+com.mysql.cj.jdbc.result.ResultSetImpl@239cf6f1
+137
+addEmployeeData being Called this no. Of times: 1
+Employee Added: Samuel
+Employee Being Added: Ashley
+com.mysql.cj.jdbc.result.ResultSetImpl@4e592e77
+138
+addEmployeeData being Called this no. Of times: 2
+Employee Added: Ashley
+AFTER PROCESS OPERATION-------------------------
+[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+Duration Without Thread: PT0.245S
+AFTER THREADS OPERATION-------------------------
+[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+Duration With Thread: PT0.004S
+[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+Employee Being Added Via Thread: Kim
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

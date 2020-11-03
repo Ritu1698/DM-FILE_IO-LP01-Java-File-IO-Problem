@@ -1,6 +1,18 @@
-nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@76029d05
-nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@3feea989
-nConnecting to database:jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false
-HConnection is successful!!!!!com.mysql.cj.jdbc.ConnectionImpl@272a21b6
+Employee Being Added: Samuel
+1com.mysql.cj.jdbc.result.ResultSetImpl@239cf6f1
+137
+3addEmployeeData being Called this no. Of times: 1
+Employee Added: Samuel
+Employee Being Added: Ashley
+1com.mysql.cj.jdbc.result.ResultSetImpl@4e592e77
+138
+3addEmployeeData being Called this no. Of times: 2
+Employee Added: Ashley
+1AFTER PROCESS OPERATION-------------------------
+Ú[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+#Duration Without Thread: PT0.245S
+1AFTER THREADS OPERATION-------------------------
+Ú[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+ Duration With Thread: PT0.004S
+Ú[EmployeePayrollData{id=1, name='Bill', startDate=2018-01-03, phone_number='1234567890', gender='M', address='California'}, EmployeePayrollData{id=2, name='Terisa', startDate=2019-11-13, phone_number='1111333344', gender='F', address='Dubai'}, EmployeePayrollData{id=3, name='Charlie', startDate=2020-05-21, phone_number='7890123456', gender='M', address='NY'}, EmployeePayrollData{id=9, name='Mark', startDate=2020-11-01, phone_number='123468768', gender='M', address='Mexico'}, EmployeePayrollData{id=137, name='Samuel', startDate=2020-11-03, phone_number='9867453654', gender='M', address='Kansas'}, EmployeePayrollData{id=138, name='Ashley', startDate=2020-11-03, phone_number='1029384756', gender='F', address='Australia'}]
+&Employee Being Added Via Thread: Kim

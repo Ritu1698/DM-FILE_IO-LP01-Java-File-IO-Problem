@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,16 +22,15 @@ public class EmployeePayrollServiceTest {
     @Before
     public void initialize() {
         EmployeePayrollData[] arrayOfEmps = {
-                new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 01, 03), "1234567890", "M", "California"),
+                new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 1, 3), "1234567890", "M", "California"),
                 new EmployeePayrollData(2, "Terisa", LocalDate.of(2019, 11, 13), "4567890123", "F", "Dubai"),
-                new EmployeePayrollData(3, "Charlie", LocalDate.of(2018, 05, 21), "7890123456", "M", "NY")
+                new EmployeePayrollData(3, "Charlie", LocalDate.of(2018, 5, 21), "7890123456", "M", "NY")
         };
-
         employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmps));
         employeePayrollDataForCheck = new ArrayList<>();
-        employeePayrollDataForCheck.add(new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 01, 03), "1234567890", "M", "California"));
+        employeePayrollDataForCheck.add(new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 1, 3), "1234567890", "M", "California"));
         employeePayrollDataForCheck.add(new EmployeePayrollData(2, "Terisa", LocalDate.of(2019, 11, 13), "4567890123", "F", "Dubai"));
-        employeePayrollDataForCheck.add(new EmployeePayrollData(3, "Charlie", LocalDate.of(2018, 05, 21), "7890123456", "M", "NY"));
+        employeePayrollDataForCheck.add(new EmployeePayrollData(3, "Charlie", LocalDate.of(2018, 5, 21), "7890123456", "M", "NY"));
     }
 
     @Test
@@ -65,8 +66,7 @@ public class EmployeePayrollServiceTest {
     @Test
     public void givenNewNumberForEmployee_whenUpdated_shouldSyncWithDB() throws SQLException {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
-        List<EmployeePayrollData> employeePayrollServices;
-        employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        List<EmployeePayrollData> employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         employeePayrollService.updateEmployeeNumber("Terisa", "1111333344");
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Terisa");
         Assert.assertTrue(result);
@@ -134,16 +134,43 @@ public class EmployeePayrollServiceTest {
     }
 
     @Test
-    public void givenEmployee_WhenRemoved_ShouldMatch() throws SQLException {
+    public void givenEmployee_whenRemoved_ShouldMatch() throws SQLException {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         int size = employeePayrollService.removeEmployeeData("Charlie");
-        Assert.assertEquals(3,size);
+        Assert.assertEquals(3, size);
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Charlie");
         Assert.assertFalse(result);
 
     }
 
+    @Test
+    public void given6Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException {
+        EmployeePayrollData[] arrayOfEmployeeData = {
+                new EmployeePayrollData(0, "Samuel", LocalDate.now(), "Kansas", "M", "9867453654"),
+                new EmployeePayrollData(0, "Ashley", LocalDate.now(), "Australia", "F", "1029384756"),
 
+        };
+        EmployeePayrollData[] arrayOfEmployeeDataForThread = {
+                new EmployeePayrollData(0, "Akhiro", LocalDate.now(), "Japan", "M", "3918274056"),
+                new EmployeePayrollData(0, "Kim", LocalDate.now(), "Malibu", "F", "5500440077")
+        };
+        EmployeePayrollService employeePayrollServiceForArray = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollServices;
+        employeePayrollServices = employeePayrollServiceForArray.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        Instant start = Instant.now();
+        employeePayrollServiceForArray.addEmployeesToPayroll(Arrays.asList(arrayOfEmployeeData));
+        Instant end = Instant.now();
+        System.out.println("Duration Without Thread: " + Duration.between(start, end));
+        //employeePayrollServiceList = employeePayrollServiceThreads.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        Instant threadStart = Instant.now();
+        employeePayrollServiceForArray.addEmployeesToPayrollWithThreads(Arrays.asList(arrayOfEmployeeDataForThread));
+        Instant threadEnd = Instant.now();
+        System.out.println("Duration With Thread: " + Duration.between(threadStart, threadEnd));
+        employeePayrollServiceForArray.printData(EmployeePayrollService.IOService.DB_IO);
+        Assert.assertEquals(8, employeePayrollServices.size());
+
+
+    }
 }

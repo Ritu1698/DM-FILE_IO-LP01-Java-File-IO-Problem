@@ -2,15 +2,30 @@ package com.bridgelabz.javapractice;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class EmployeePayrollService {
 
+    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
+
+    private static List<EmployeePayrollData> employeePayrollList;
+    private static EmployeePayrollDBService employeePayrollDBService;
+    private static int count = 0;
+
+    public EmployeePayrollService() {
+        employeePayrollDBService = EmployeePayrollDBService.getInstance();
+    }
+
+    //Parameterized Constructor
+    public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
+        this();
+        this.employeePayrollList = employeePayrollList;
+    }
+
     public static void addEmployeeData(String name, LocalDate date, String address, String gender, String number) {
         employeePayrollList.add(employeePayrollDBService.addEmployeePayroll(name, date, address, gender, number));
+        System.out.println("addEmployeeData being Called this no. Of times: " + ++count);
     }
 
     public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) throws SQLException {
@@ -32,24 +47,41 @@ public class EmployeePayrollService {
 
     public int removeEmployeeData(String name) {
         employeePayrollDBService.removeEmployeeData(name);
-        employeePayrollList= employeePayrollList.stream().filter(emp -> !emp.name.equals(name)).collect(Collectors.toList());
+        employeePayrollList = employeePayrollList.stream().filter(emp -> !emp.name.equals(name)).collect(Collectors.toList());
         return employeePayrollList.size();
 
     }
 
-    public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
-
-    private static List<EmployeePayrollData> employeePayrollList;
-    private static EmployeePayrollDBService employeePayrollDBService;
-
-    public EmployeePayrollService() {
-        employeePayrollDBService = EmployeePayrollDBService.getInstance();
+    public void addEmployeesToPayroll(List<EmployeePayrollData> employeePayrollDataList) {
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            System.out.println("Employee Being Added: " + employeePayrollData.name);
+            addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.phone_number, employeePayrollData.gender, employeePayrollData.address);
+            System.out.println("Employee Added: " + employeePayrollData.name);
+        });
+        System.out.println("AFTER PROCESS OPERATION-------------------------\n"+employeePayrollList);
     }
 
-    //Parameterized Constructor
-    public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
-        this();
-        this.employeePayrollList = employeePayrollList;
+    public void addEmployeesToPayrollWithThreads(List<EmployeePayrollData> employeePayrollDataList) {
+        Map<Integer, Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            Runnable task = () -> {
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
+                System.out.println("Employee Being Added Via Thread: " + Thread.currentThread().getName());
+                addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.phone_number, employeePayrollData.gender, employeePayrollData.address);
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+                System.out.println("Employee Added Via Thread: " + Thread.currentThread().getName());
+            };
+            Thread thread = new Thread(task, employeePayrollData.name);
+            thread.start();
+        });
+        while (employeeAdditionStatus.containsValue(false)) {
+            try {
+                Thread.sleep(600);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("AFTER THREADS OPERATION-------------------------\n"+employeePayrollList);
     }
 
     //Main Method
@@ -94,6 +126,8 @@ public class EmployeePayrollService {
     public void printData(IOService ioService) {
         if (ioService.equals(IOService.FILE_IO))
             new EmployeePayrollFileIOService().printData();
+        else
+            System.out.println(employeePayrollList);
     }
 
     //Method To Count Entries

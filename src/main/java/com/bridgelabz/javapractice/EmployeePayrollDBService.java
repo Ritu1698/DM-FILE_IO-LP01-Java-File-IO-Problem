@@ -44,7 +44,6 @@ public class EmployeePayrollDBService {
             employeePayrollData = new EmployeePayrollData(employeeID, name, start, number, gender, address);
         } catch (SQLException e) {
             e.printStackTrace();
-            ;
         }
         return employeePayrollData;
     }
@@ -240,9 +239,9 @@ public class EmployeePayrollDBService {
         String password = "root";
         Connection con = null;
         try {
-            System.out.println("Connecting to database:" + jdbcURL);
+            //System.out.println("Connecting to database:" + jdbcURL);
             con = DriverManager.getConnection(jdbcURL, userName, password);
-            System.out.println("Connection is successful!!!!!" + con);
+            //System.out.println("Connection is successful!!!!!" + con);
         } catch (Exception e) {
             e.printStackTrace();
         }
