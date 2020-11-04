@@ -12,6 +12,7 @@ public class EmployeePayrollDBService {
     private static final String getSalaryAvg = "Select avg(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryMin = "Select min(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryMax = "Select max(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
+    private static final String updateNumber = "update employee set phone_number=? where name=?";
     private int connectionCounter = 0;
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
@@ -26,7 +27,7 @@ public class EmployeePayrollDBService {
         return employeePayrollDBService;
     }
 
-    public EmployeePayrollData addEmployeePayroll(String name, LocalDate start, String address, String gender, String number) {
+    public synchronized EmployeePayrollData addEmployeePayroll(String name, LocalDate start, String address, String gender, String number) {
         int employeeID = -1;
         EmployeePayrollData employeePayrollData = null;
         String sqlQuery = String.format("insert into employee (name, gender, start, address, phone_number) " +
@@ -259,14 +260,27 @@ public class EmployeePayrollDBService {
         return this.updateEmployeeDataUsingStatement(name, newNumber);
     }
 
-    public int updateEmployeeDataUsingStatement(String name, String newNumber) throws SQLException {
-        String query = String.format("update employee set phone_number='%s' where name='%s';", newNumber, name);
+    public synchronized int updateEmployeeDataUsingStatement(String name, String newNumber) throws SQLException {
+//        String query = String.format("update employee set phone_number='%s' where name='%s';", newNumber, name);
+//        try (Connection connection = this.getConnection()) {
+//            Statement statement = connection.createStatement();
+//            return statement.executeUpdate(query);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return 0;
+
+
         try (Connection connection = this.getConnection()) {
-            Statement statement = connection.createStatement();
-            return statement.executeUpdate(query);
-        } catch (Exception e) {
+            employeePayrollDataStatement = connection.prepareStatement(updateNumber);
+            employeePayrollDataStatement.setString(1, newNumber);
+            employeePayrollDataStatement.setString(2, name);
+            int result = employeePayrollDataStatement.executeUpdate();
+            return result;
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return 0;
     }
 

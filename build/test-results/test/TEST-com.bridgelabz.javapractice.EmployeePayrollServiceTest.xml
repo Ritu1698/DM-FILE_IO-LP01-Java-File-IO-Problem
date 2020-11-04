@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-04T06:49:13" hostname="LAPTOP-RGI87V6B" time="0.441">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-04T07:08:01" hostname="LAPTOP-RGI87V6B" time="0.625">
   <properties/>
-  <testcase name="givenMultipleEmployees_whenUpdatedToDB_shouldBeInSync" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.441"/>
+  <testcase name="givenMultipleEmployees_whenUpdatedToDB_shouldBeInSync" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="0.625"/>
   <system-out><![CDATA[Process Thread :Test worker Connecting to Database With Id: 1
 Process Thread :Test worker Connection Successful!!!!com.mysql.cj.jdbc.ConnectionImpl@4efec3d7
-Employee Being Added Via Thread: Kim
 Employee Being Added Via Thread: Akhiro
+Employee Being Added Via Thread: Kim
 Process Thread :Akhiro Connecting to Database With Id: 2
-Process Thread :Akhiro Connection Successful!!!!com.mysql.cj.jdbc.ConnectionImpl@22e8a0cc
-Process Thread :Kim Connecting to Database With Id: 3
-Duration With Thread: PT0.022S
-Process Thread :Kim Connection Successful!!!!com.mysql.cj.jdbc.ConnectionImpl@5fe4fd20
-Process Thread :Test worker Connecting to Database With Id: 4
+Process Thread :Akhiro Connection Successful!!!!com.mysql.cj.jdbc.ConnectionImpl@228e1506
+Duration With Thread: PT0.013S
+Process Thread :Test worker Connecting to Database With Id: 3
 Employee Added Via Thread: Akhiro
-Employee Added Via Thread: Kim
 Process Thread :Test worker Connection Successful!!!!com.mysql.cj.jdbc.ConnectionImpl@a5fbf62
+Process Thread :Kim Connecting to Database With Id: 4
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
