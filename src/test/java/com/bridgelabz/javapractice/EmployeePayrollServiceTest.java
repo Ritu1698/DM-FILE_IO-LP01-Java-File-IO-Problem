@@ -146,7 +146,7 @@ public class EmployeePayrollServiceTest {
     }
 
     @Test
-    public void given6Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException {
+    public void given6Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException, InterruptedException {
         EmployeePayrollData[] arrayOfEmployeeData = {
                 new EmployeePayrollData(0, "Samuel", LocalDate.now(), "Kansas", "M", "9867453654"),
                 new EmployeePayrollData(0, "Ashley", LocalDate.now(), "Australia", "F", "1029384756"),
@@ -166,6 +166,7 @@ public class EmployeePayrollServiceTest {
         //employeePayrollServiceList = employeePayrollServiceThreads.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         Instant threadStart = Instant.now();
         employeePayrollServiceForArray.addEmployeesToPayrollWithThreads(Arrays.asList(arrayOfEmployeeDataForThread));
+        Thread.sleep(1600);
         Instant threadEnd = Instant.now();
         System.out.println("Duration With Thread: " + Duration.between(threadStart, threadEnd));
         employeePayrollServiceForArray.printData(EmployeePayrollService.IOService.DB_IO);
