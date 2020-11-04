@@ -12,6 +12,7 @@ public class EmployeePayrollDBService {
     private static final String getSalaryAvg = "Select avg(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryMin = "Select min(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
     private static final String getSalaryMax = "Select max(basic_pay) as salary from employee e, payroll p where e.employee_id = p.employee_id and e.gender = ? group by e.gender";
+    private int connectionCounter = 0;
     private static PreparedStatement employeePayrollDataStatement;
     private static EmployeePayrollDBService employeePayrollDBService;
 
@@ -233,14 +234,19 @@ public class EmployeePayrollDBService {
         return salaryMax;
     }
 
-    private Connection getConnection() {
+    private synchronized Connection getConnection() {
+        connectionCounter++;
         String jdbcURL = "jdbc:mysql://localhost:3306/payroll_service?allowPublicKeyRetrieval=true&useSSL=false";
         String userName = "root";
         String password = "root";
         Connection con = null;
         try {
             //System.out.println("Connecting to database:" + jdbcURL);
+            System.out.println("Process Thread :" + Thread.currentThread().getName() +
+                    " Connecting to Database With Id: " + connectionCounter);
             con = DriverManager.getConnection(jdbcURL, userName, password);
+            System.out.println("Process Thread :" + Thread.currentThread().getName() +
+                    " Connection Successful!!!!" + con);
             //System.out.println("Connection is successful!!!!!" + con);
         } catch (Exception e) {
             e.printStackTrace();

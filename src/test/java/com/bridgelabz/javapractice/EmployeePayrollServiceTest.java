@@ -146,15 +146,15 @@ public class EmployeePayrollServiceTest {
     }
 
     @Test
-    public void given6Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException, InterruptedException {
+    public void given4Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException, InterruptedException {
         EmployeePayrollData[] arrayOfEmployeeData = {
-                new EmployeePayrollData(0, "Samuel", LocalDate.now(), "Kansas", "M", "9867453654"),
-                new EmployeePayrollData(0, "Ashley", LocalDate.now(), "Australia", "F", "1029384756"),
+                new EmployeePayrollData(0, "Samuel", LocalDate.now(), "9867453654", "M", "Kansas"),
+                new EmployeePayrollData(0, "Ashley", LocalDate.now(), "1029384756", "F","Australia" ),
 
         };
         EmployeePayrollData[] arrayOfEmployeeDataForThread = {
-                new EmployeePayrollData(0, "Akhiro", LocalDate.now(), "Japan", "M", "3918274056"),
-                new EmployeePayrollData(0, "Kim", LocalDate.now(), "Malibu", "F", "5500440077")
+                new EmployeePayrollData(0, "Akhiro", LocalDate.now(),"3918274056" , "M", "Japan"),
+                new EmployeePayrollData(0, "Kim", LocalDate.now(), "5500440077", "F", "Malibu")
         };
         EmployeePayrollService employeePayrollServiceForArray = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
@@ -166,12 +166,31 @@ public class EmployeePayrollServiceTest {
         //employeePayrollServiceList = employeePayrollServiceThreads.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
         Instant threadStart = Instant.now();
         employeePayrollServiceForArray.addEmployeesToPayrollWithThreads(Arrays.asList(arrayOfEmployeeDataForThread));
-        Thread.sleep(1600);
+        Thread.sleep(600);
         Instant threadEnd = Instant.now();
         System.out.println("Duration With Thread: " + Duration.between(threadStart, threadEnd));
         employeePayrollServiceForArray.printData(EmployeePayrollService.IOService.DB_IO);
         Assert.assertEquals(8, employeePayrollServices.size());
+    }
 
+    @Test
+    public void givenMultipleEmployees_whenUpdatedToDB_shouldBeInSync() throws SQLException, InterruptedException {
+        EmployeePayrollData[] updatedArrayOfEmployeeDataForThread = {
+                new EmployeePayrollData(0, "Akhiro", LocalDate.now(), "1111000022", "", ""),
+                new EmployeePayrollData(0, "Kim", LocalDate.now(), "4343438989", "", "")
+        };
+
+        EmployeePayrollService employeePayrollService = new EmployeePayrollService();
+        List<EmployeePayrollData> employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
+        Instant startThread = Instant.now();
+        employeePayrollService.updateMultipleEmployeeNumberUsingThreads(Arrays.asList(updatedArrayOfEmployeeDataForThread));
+        Thread.sleep(10);
+        Instant endThread = Instant.now();
+        System.out.println("Duration With Thread: " + Duration.between(startThread, endThread));
+        boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Akhiro");
+        boolean result1 = employeePayrollService.checkEmployeePayrollInSyncWithDB("Kim");
+        Assert.assertTrue(result);
+        Assert.assertTrue(result1);
 
     }
 }

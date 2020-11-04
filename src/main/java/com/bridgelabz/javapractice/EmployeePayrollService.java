@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 public class EmployeePayrollService {
 
+
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
 
     private static List<EmployeePayrollData> employeePayrollList;
@@ -55,10 +56,10 @@ public class EmployeePayrollService {
     public void addEmployeesToPayroll(List<EmployeePayrollData> employeePayrollDataList) {
         employeePayrollDataList.forEach(employeePayrollData -> {
             System.out.println("Employee Being Added: " + employeePayrollData.name);
-            addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.phone_number, employeePayrollData.gender, employeePayrollData.address);
+            addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.address, employeePayrollData.gender, employeePayrollData.phone_number);
             System.out.println("Employee Added: " + employeePayrollData.name);
         });
-        System.out.println("AFTER PROCESS OPERATION-------------------------\n"+employeePayrollList);
+        System.out.println("AFTER PROCESS OPERATION-------------------------\n" + employeePayrollList);
     }
 
     public void addEmployeesToPayrollWithThreads(List<EmployeePayrollData> employeePayrollDataList) {
@@ -67,7 +68,7 @@ public class EmployeePayrollService {
             Runnable task = () -> {
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
                 System.out.println("Employee Being Added Via Thread: " + Thread.currentThread().getName());
-                addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.phone_number, employeePayrollData.gender, employeePayrollData.address);
+                addEmployeeData(employeePayrollData.name, employeePayrollData.startDate, employeePayrollData.address, employeePayrollData.gender, employeePayrollData.phone_number);
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
                 System.out.println("Employee Added Via Thread: " + Thread.currentThread().getName());
             };
@@ -81,7 +82,7 @@ public class EmployeePayrollService {
 //                e.printStackTrace();
 //            }
 //        }
-        System.out.println("AFTER THREADS OPERATION-------------------------\n"+employeePayrollList);
+        System.out.println("AFTER THREADS OPERATION-------------------------\n" + employeePayrollList);
     }
 
     //Main Method
@@ -201,6 +202,26 @@ public class EmployeePayrollService {
         if (result == 0) return;
         EmployeePayrollData employeePayrollData = this.getEmployeePayRollData(name);
         if (employeePayrollData != null) employeePayrollData.phone_number = newNumber;
+    }
+
+
+    public synchronized void updateMultipleEmployeeNumberUsingThreads(List<EmployeePayrollData> employeePayrollDataList){
+        Map<Integer, Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
+        employeePayrollDataList.forEach(employeePayrollData -> {
+            Runnable task = () -> {
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
+                System.out.println("Employee Being Added Via Thread: " + Thread.currentThread().getName());
+                try {
+                    updateEmployeeNumber(employeePayrollData.name,employeePayrollData.phone_number);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
+                System.out.println("Employee Added Via Thread: " + Thread.currentThread().getName());
+            };
+            Thread thread = new Thread(task, employeePayrollData.name);
+            thread.start();
+        });
     }
 
     //GetData from EmployeePayrollData on Name Match
