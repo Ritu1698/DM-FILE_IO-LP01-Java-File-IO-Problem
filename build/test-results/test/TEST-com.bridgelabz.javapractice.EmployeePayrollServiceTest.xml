@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T07:34:32" hostname="LAPTOP-RGI87V6B" time="3.139">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T07:43:36" hostname="LAPTOP-RGI87V6B" time="3.123">
   <properties/>
-  <testcase name="givenNewPhoneNumberForEmployee_whenUpdatedToJsonServer_shouldMatch200Response" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="3.139"/>
+  <testcase name="givenEmployeeToDelete_whenDeleted_shouldMatch200ResponseAndCount" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="3.123"/>
   <system-out><![CDATA[EMPLOYEE PAYROLL ENTRIES IN JSON Server:
 [
   {
@@ -72,7 +72,7 @@
       "month": 11,
       "day": 5
     },
-    "phone_number": "5500440077",
+    "phone_number": "9999888800",
     "gender": "F",
     "address": "Malibu"
   }

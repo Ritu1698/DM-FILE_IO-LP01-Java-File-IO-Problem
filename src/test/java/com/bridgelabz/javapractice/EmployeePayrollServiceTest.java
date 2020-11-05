@@ -145,7 +145,7 @@ public class EmployeePayrollServiceTest {
         EmployeePayrollService employeePayrollService = new EmployeePayrollService();
         List<EmployeePayrollData> employeePayrollServices;
         employeePayrollServices = EmployeePayrollService.readEmployeePayrollData(EmployeePayrollService.IOService.DB_IO);
-        int size = employeePayrollService.removeEmployeeData("Charlie");
+        int size = employeePayrollService.removeEmployeeData("Charlie", EmployeePayrollService.IOService.DB_IO);
         Assert.assertEquals(3, size);
         boolean result = employeePayrollService.checkEmployeePayrollInSyncWithDB("Charlie");
         Assert.assertFalse(result);
@@ -260,6 +260,24 @@ public class EmployeePayrollServiceTest {
         Response response = requestSpecification.put("/employees/" + employeePayrollData.id);
         int statusCode = response.getStatusCode();
         Assert.assertEquals(200, statusCode);
+
+
+    }
+
+    @Test
+    public void givenEmployeeToDelete_whenDeleted_shouldMatch200ResponseAndCount(){
+        EmployeePayrollService employeePayrollService;
+        EmployeePayrollData[] arrayOfEmployees = getEmployeeList();
+        employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+        EmployeePayrollData employeePayrollData = employeePayrollService.getEmployeePayRollData("Kim");
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.header("Content-Type", "application/json");
+        Response response = requestSpecification.delete("/employees/" + employeePayrollData.id);
+        int statusCode = response.getStatusCode();
+        Assert.assertEquals(200, statusCode);
+        employeePayrollService.removeEmployeeData(employeePayrollData.name,EmployeePayrollService.IOService.REST_IO);
+        long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.REST_IO);
+        Assert.assertEquals(5,entries);
 
 
     }

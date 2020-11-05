@@ -51,7 +51,8 @@ public class EmployeePayrollService {
         return employeePayrollDataList.get(0).equals(getEmployeePayRollData(name));
     }
 
-    public int removeEmployeeData(String name) {
+    public int removeEmployeeData(String name,IOService ioService) {
+        if(ioService == IOService.DB_IO)
         employeePayrollDBService.removeEmployeeData(name);
         employeePayrollList = employeePayrollList.stream().filter(emp -> !emp.name.equals(name)).collect(Collectors.toList());
         return employeePayrollList.size();
