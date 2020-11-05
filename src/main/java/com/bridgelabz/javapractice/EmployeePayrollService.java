@@ -21,7 +21,7 @@ public class EmployeePayrollService {
     //Parameterized Constructor
     public EmployeePayrollService(List<EmployeePayrollData> employeePayrollList) {
         this();
-        this.employeePayrollList = employeePayrollList;
+        this.employeePayrollList = new ArrayList<>(employeePayrollList);
     }
 
     public static void addEmployeeData(String name, LocalDate date, String address, String gender, String number) {
@@ -137,7 +137,7 @@ public class EmployeePayrollService {
             return employeePayrollList.size();
         else if (ioService.equals(IOService.FILE_IO))
             return new EmployeePayrollFileIOService().countEntries();
-        return 0;
+        return employeePayrollList.size();
     }
 
     //Read EmployeePayrollData From The payroll_service Database using SQL
@@ -205,19 +205,19 @@ public class EmployeePayrollService {
     }
 
 
-    public synchronized void updateMultipleEmployeeNumberUsingThreads(List<EmployeePayrollData> employeePayrollDataList){
+    public void updateMultipleEmployeeNumberUsingThreads(List<EmployeePayrollData> employeePayrollDataList){
         Map<Integer, Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
         employeePayrollDataList.forEach(employeePayrollData -> {
             Runnable task = () -> {
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
-                System.out.println("Employee Being Added Via Thread: " + Thread.currentThread().getName());
+                System.out.println("Employee Being Updated Via Thread: " + Thread.currentThread().getName());
                 try {
                     updateEmployeeNumber(employeePayrollData.name,employeePayrollData.phone_number);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), true);
-                System.out.println("Employee Added Via Thread: " + Thread.currentThread().getName());
+                System.out.println("Employee Updated Via Thread: " + Thread.currentThread().getName());
             };
             Thread thread = new Thread(task, employeePayrollData.name);
             thread.start();

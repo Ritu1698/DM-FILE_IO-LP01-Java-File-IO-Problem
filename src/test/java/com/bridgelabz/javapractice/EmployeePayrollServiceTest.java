@@ -1,5 +1,8 @@
 package com.bridgelabz.javapractice;
 
+import com.google.gson.Gson;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +24,8 @@ public class EmployeePayrollServiceTest {
 
     @Before
     public void initialize() {
+        RestAssured.baseURI = "http://localhost";
+        RestAssured.port = 3000;
         EmployeePayrollData[] arrayOfEmps = {
                 new EmployeePayrollData(1, "Bill", LocalDate.of(2018, 1, 3), "1234567890", "M", "California"),
                 new EmployeePayrollData(2, "Terisa", LocalDate.of(2019, 11, 13), "4567890123", "F", "Dubai"),
@@ -192,5 +197,21 @@ public class EmployeePayrollServiceTest {
         Assert.assertTrue(result);
         Assert.assertTrue(result1);
 
+    }
+
+    @Test
+    public void  givenEmployeeDataInJsonServer_whenRetrieved_shouldMatchTheCount(){
+        EmployeePayrollData[] arrayOfEmployees = getEmployeeList();
+        EmployeePayrollService employeePayrollService;
+        employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+        long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.REST_IO);
+        Assert.assertEquals(3,entries);
+    }
+
+    private EmployeePayrollData[] getEmployeeList() {
+        Response response = RestAssured.get("/employees");
+        System.out.println("EMPLOYEE PAYROLL ENTRIES IN JSON Server:\n"+response.asString());
+        EmployeePayrollData[] arrayOfEmployees = new Gson().fromJson(response.asString(), EmployeePayrollData[].class);
+        return  arrayOfEmployees;
     }
 }
