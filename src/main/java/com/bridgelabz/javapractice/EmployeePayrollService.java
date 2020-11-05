@@ -201,10 +201,13 @@ public class EmployeePayrollService {
     }
 
     //Update Phone Number From The payroll_service Database
-    public void updateEmployeeNumber(String name, String newNumber) throws SQLException {
+    public void updateEmployeeNumber(String name, String newNumber, IOService ioService) throws SQLException {
 
-        int result = employeePayrollDBService.updateEmployeeData(name, newNumber);
-        if (result == 0) return;
+        if (ioService == IOService.DB_IO) {
+            int result = employeePayrollDBService.updateEmployeeData(name, newNumber);
+            if (result == 0) return;
+        }
+
         EmployeePayrollData employeePayrollData = this.getEmployeePayRollData(name);
         if (employeePayrollData != null) employeePayrollData.phone_number = newNumber;
     }
@@ -217,7 +220,7 @@ public class EmployeePayrollService {
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
                 System.out.println("Employee Being Updated Via Thread: " + Thread.currentThread().getName());
                 try {
-                    updateEmployeeNumber(employeePayrollData.name, employeePayrollData.phone_number);
+                    updateEmployeeNumber(employeePayrollData.name, employeePayrollData.phone_number, IOService.DB_IO);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -230,7 +233,7 @@ public class EmployeePayrollService {
     }
 
     //GetData from EmployeePayrollData on Name Match
-    private EmployeePayrollData getEmployeePayRollData(String name) {
+    public EmployeePayrollData getEmployeePayRollData(String name) {
         return employeePayrollList.stream()
                 .filter(employeePayRollDataItem -> employeePayRollDataItem.name.equals(name))
                 .findFirst()
