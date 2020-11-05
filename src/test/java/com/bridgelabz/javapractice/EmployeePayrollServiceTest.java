@@ -3,10 +3,12 @@ package com.bridgelabz.javapractice;
 import com.google.gson.Gson;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.Instant;
@@ -154,11 +156,11 @@ public class EmployeePayrollServiceTest {
     public void given4Employees_whenAddedToDB_shouldMatchEmployeeEntries() throws SQLException, InterruptedException {
         EmployeePayrollData[] arrayOfEmployeeData = {
                 new EmployeePayrollData(0, "Samuel", LocalDate.now(), "9867453654", "M", "Kansas"),
-                new EmployeePayrollData(0, "Ashley", LocalDate.now(), "1029384756", "F","Australia" ),
+                new EmployeePayrollData(0, "Ashley", LocalDate.now(), "1029384756", "F", "Australia"),
 
         };
         EmployeePayrollData[] arrayOfEmployeeDataForThread = {
-                new EmployeePayrollData(0, "Akhiro", LocalDate.now(),"3918274056" , "M", "Japan"),
+                new EmployeePayrollData(0, "Akhiro", LocalDate.now(), "3918274056", "M", "Japan"),
                 new EmployeePayrollData(0, "Kim", LocalDate.now(), "5500440077", "F", "Malibu")
         };
         EmployeePayrollService employeePayrollServiceForArray = new EmployeePayrollService();
@@ -200,18 +202,41 @@ public class EmployeePayrollServiceTest {
     }
 
     @Test
-    public void  givenEmployeeDataInJsonServer_whenRetrieved_shouldMatchTheCount(){
+    public void givenEmployeeDataInJsonServer_whenRetrieved_shouldMatchTheCount() {
         EmployeePayrollData[] arrayOfEmployees = getEmployeeList();
         EmployeePayrollService employeePayrollService;
         employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
         long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.REST_IO);
-        Assert.assertEquals(3,entries);
+        Assert.assertEquals(3, entries);
+    }
+
+    @Test
+    public void givenEmployeeData_whenAddedToJsonServer_ShouldMatchResponse201AndCount() {
+        EmployeePayrollService employeePayrollService;
+        EmployeePayrollData[] arrayOfEmployees = getEmployeeList();
+        employeePayrollService = new EmployeePayrollService(Arrays.asList(arrayOfEmployees));
+        EmployeePayrollData employeePayrollData = new EmployeePayrollData(0, "Samuel", LocalDate.now(), "9867453654", "M", "Kansas");
+        Response response = addEmployeePayrollDataToJsonServer(employeePayrollData);
+        int statusCode = response.getStatusCode();
+        Assert.assertEquals(201, statusCode);
+        employeePayrollData = new Gson().fromJson(response.asString(), EmployeePayrollData.class);
+        employeePayrollService.addEmployeeDataForREST(employeePayrollData);
+        long entries = employeePayrollService.countEntries(EmployeePayrollService.IOService.REST_IO);
+        Assert.assertEquals(4,entries);
+    }
+
+    private Response addEmployeePayrollDataToJsonServer(EmployeePayrollData employeePayrollData) {
+        String empJson = new Gson().toJson(employeePayrollData);
+        RequestSpecification requestSpecification = RestAssured.given();
+        requestSpecification.header("Content-Type", "application/json");
+        requestSpecification.body(empJson);
+        return requestSpecification.post("/employees");
     }
 
     private EmployeePayrollData[] getEmployeeList() {
         Response response = RestAssured.get("/employees");
-        System.out.println("EMPLOYEE PAYROLL ENTRIES IN JSON Server:\n"+response.asString());
+        System.out.println("EMPLOYEE PAYROLL ENTRIES IN JSON Server:\n" + response.asString());
         EmployeePayrollData[] arrayOfEmployees = new Gson().fromJson(response.asString(), EmployeePayrollData[].class);
-        return  arrayOfEmployees;
+        return arrayOfEmployees;
     }
 }

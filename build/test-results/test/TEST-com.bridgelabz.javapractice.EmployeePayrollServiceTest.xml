@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T06:41:35" hostname="LAPTOP-RGI87V6B" time="6.59">
+<testsuite name="com.bridgelabz.javapractice.EmployeePayrollServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T07:06:03" hostname="LAPTOP-RGI87V6B" time="3.743">
   <properties/>
-  <testcase name="givenEmployeeDataInJsonServer_whenRetrieved_shouldMatchTheCount" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="6.59"/>
+  <testcase name="givenEmployeeData_whenAddedToJsonServer_ShouldMatchResponse201AndCount" classname="com.bridgelabz.javapractice.EmployeePayrollServiceTest" time="3.743"/>
   <system-out><![CDATA[EMPLOYEE PAYROLL ENTRIES IN JSON Server:
 [
   {

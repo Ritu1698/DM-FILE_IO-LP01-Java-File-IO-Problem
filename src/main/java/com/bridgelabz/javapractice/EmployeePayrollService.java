@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class EmployeePayrollService {
 
-
     public enum IOService {CONSOLE_IO, FILE_IO, DB_IO, REST_IO}
 
     private static List<EmployeePayrollData> employeePayrollList;
@@ -29,9 +28,15 @@ public class EmployeePayrollService {
         System.out.println("addEmployeeData being Called this no. Of times: " + ++count);
     }
 
+
     public static void addEmployeeDataToBoth(String name, LocalDate start, String address, String gender, String number, Double basic_pay) throws SQLException {
         employeePayrollList.add(employeePayrollDBService.addEmployeePayrollToBothTables(name, start, address, gender, number, basic_pay));
     }
+
+    public void addEmployeeDataForREST(EmployeePayrollData employeePayrollData) {
+        employeePayrollList.add(employeePayrollData);
+    }
+
 
     public List<EmployeePayrollData> readDataFileIO(IOService ioService) {
         List<EmployeePayrollData> employeePayrollDataArrayList = new ArrayList<>();
@@ -205,14 +210,14 @@ public class EmployeePayrollService {
     }
 
 
-    public void updateMultipleEmployeeNumberUsingThreads(List<EmployeePayrollData> employeePayrollDataList){
+    public void updateMultipleEmployeeNumberUsingThreads(List<EmployeePayrollData> employeePayrollDataList) {
         Map<Integer, Boolean> employeeAdditionStatus = new HashMap<Integer, Boolean>();
         employeePayrollDataList.forEach(employeePayrollData -> {
             Runnable task = () -> {
                 employeeAdditionStatus.put(employeePayrollData.hashCode(), false);
                 System.out.println("Employee Being Updated Via Thread: " + Thread.currentThread().getName());
                 try {
-                    updateEmployeeNumber(employeePayrollData.name,employeePayrollData.phone_number);
+                    updateEmployeeNumber(employeePayrollData.name, employeePayrollData.phone_number);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
